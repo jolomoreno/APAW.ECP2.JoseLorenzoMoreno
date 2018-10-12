@@ -21,7 +21,7 @@ public class CompeticionTest {
     void testCompeticion(){
         assertEquals( "Tour de Francia", competicion.getNombre());
         String fechaFormat = competicion.getFecha().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        assertEquals( "13/10/2018", fechaFormat);
+        assertEquals( "12/10/2018", fechaFormat);
     }
 
     @Test
