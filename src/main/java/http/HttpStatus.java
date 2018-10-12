@@ -1,7 +1,7 @@
 package http;
 
 public enum HttpStatus {
-    OK(200), BAD_REQUEST(400), NOT_FOUND(404), CONFLICT(409), INTERNAL_SERVER_ERROR(500);
+    OK(200), BAD_REQUEST(403), NOT_FOUND(404), CONFLICT(409), INTERNAL_SERVER_ERROR(500);
 
     private int code;
 
@@ -10,7 +10,7 @@ public enum HttpStatus {
     }
 
     public boolean isError() {
-        return this.code >= 400;
+        return this.code >= 403;
     }
 
     @Override
