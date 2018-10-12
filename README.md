@@ -17,7 +17,7 @@
 * Sonarcloud
 
 ## Diseño de entidades
-![equipos-entities-diagram](https://github.com/jolomoreno/APAW.ECP2.JoseLorenzoMoreno/blob/master/docs/APAW.ECP2.JoseLorenzoMoreno.png)
+![equipos-entities-diagram](https://github.com/jolomoreno/APAW.ECP2.JoseLorenzoMoreno/blob/develop/docs/APAW.ECP2.JoseLorenzoMoreno.png)
 
 ## Arquitectura
 ![equipos-architecture-diagram](https://github.com/miw-upm/APAW-themes-layers/blob/develop/docs/themes-architecture-diagram.png)

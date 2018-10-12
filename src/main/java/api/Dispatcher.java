@@ -49,8 +49,8 @@ public class Dispatcher {
 
     private void doPost(HttpRequest request, HttpResponse response) {
         if (request.isEqualsPath(CompeticionApiController.COMPETICIONES)) {
-            System.out.println(request);
-            System.out.println(response);
+            // System.out.println(request);
+            // System.out.println(response);
             response.setBody(this.competicionApiController.create((CompeticionDto) request.getBody()));
         } else {
             throw new RequestInvalidException("method error: " + request.getMethod());
