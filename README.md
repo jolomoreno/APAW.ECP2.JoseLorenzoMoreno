@@ -5,10 +5,7 @@
 
 ## Estado del proyecto
 
-#### Master: 
 #### [![Build Status](https://travis-ci.org/jolomoreno/APAW.ECP2.JoseLorenzoMoreno.svg?branch=master)](https://travis-ci.org/jolomoreno/APAW.ECP2.JoseLorenzoMoreno)
-
-#### Develop:
 #### [![Build Status](https://travis-ci.org/jolomoreno/APAW.ECP2.JoseLorenzoMoreno.svg?branch=develop)](https://travis-ci.org/jolomoreno/APAW.ECP2.JoseLorenzoMoreno)
 
 #### [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=jolomoreno_APAW.ECP2.JoseLorenzoMoreno&metric=alert_status)](https://sonarcloud.io/dashboard?id=jolomoreno_APAW.ECP2.JoseLorenzoMoreno)
