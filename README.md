@@ -43,8 +43,8 @@
 ## API
 ### POST /competiciones
 #### Parámetros del cuerpo
-- `fecha`: LocalDatetime (**requerido**)
-- `lugar`: String (**requerido**)
+- `nombre`: String (**requerido**)
+- `fecha`: LocalDatetime
 #### Respuesta
 - 200 OK 
   - `id`: String
@@ -53,12 +53,12 @@
 ### GET /competiciones
 #### Respuesta
 - 200 OK 
-  - `[ {id:String,fecha:LocalDateTime,lugar:String} ]`
+  - `[ {id:String,nombre:String} ]`
 ---
 ### PUT /competiciones/{id}
 #### Parámetros del cuerpo
-- `fecha`: LocalDatetime (**requerido**)
-- `lugar`: String (**requerido**)
+- `nombre`: String (**requerido**)
+- `fecha`: LocalDatetime
 #### Respuesta
 - 200 OK 
 - 403 BAD_REQUEST
