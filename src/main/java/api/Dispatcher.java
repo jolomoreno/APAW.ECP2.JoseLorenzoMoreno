@@ -26,6 +26,7 @@ public class Dispatcher {
             switch (request.getMethod()) {
                 case POST:
                     this.doPost(request, response);
+                    break;
                 case GET:
                     throw new RequestInvalidException("request error: " + request.getMethod() + ' ' + request.getPath());
                 case PUT:
@@ -49,8 +50,6 @@ public class Dispatcher {
 
     private void doPost(HttpRequest request, HttpResponse response) {
         if (request.isEqualsPath(CompeticionApiController.COMPETICIONES)) {
-            // System.out.println(request);
-            // System.out.println(response);
             response.setBody(this.competicionApiController.create((CompeticionDto) request.getBody()));
         } else {
             throw new RequestInvalidException("method error: " + request.getMethod());
