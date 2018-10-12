@@ -4,8 +4,6 @@ import api.daos.DaoFactory;
 import api.dtos.CompeticionDto;
 import api.entities.Competicion;
 
-import java.time.LocalDateTime;
-
 public class CompeticionBusinessController {
 
     public String create(CompeticionDto competicionDto){

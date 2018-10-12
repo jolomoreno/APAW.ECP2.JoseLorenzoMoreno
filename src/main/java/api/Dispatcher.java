@@ -8,6 +8,8 @@ import api.exceptions.ArgumentNotValidException;
 import api.apiControllers.CompeticionApiController;
 import http.HttpRequest;
 import http.HttpResponse;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Dispatcher {
 
@@ -18,6 +20,7 @@ public class Dispatcher {
     private CompeticionApiController competicionApiController = new CompeticionApiController();
 
     public void submit(HttpRequest request, HttpResponse response) {
+
         String ERROR_MESSAGE = "{'error':'%S'}";
         try {
             switch (request.getMethod()) {
@@ -46,6 +49,8 @@ public class Dispatcher {
 
     private void doPost(HttpRequest request, HttpResponse response) {
         if (request.isEqualsPath(CompeticionApiController.COMPETICIONES)) {
+            System.out.println(request);
+            System.out.println(response);
             response.setBody(this.competicionApiController.create((CompeticionDto) request.getBody()));
         } else {
             throw new RequestInvalidException("method error: " + request.getMethod());

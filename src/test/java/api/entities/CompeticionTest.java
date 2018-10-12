@@ -21,7 +21,7 @@ public class CompeticionTest {
     void testCompeticion(){
         assertEquals( "Tour de Francia", competicion.getNombre());
         String fechaFormat = competicion.getFecha().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        assertEquals( "12/10/2018", fechaFormat);
+        assertEquals( "13/10/2018", fechaFormat);
     }
 
     @Test
@@ -32,13 +32,13 @@ public class CompeticionTest {
 
     @Test
     void testSetFecha(){
-        competicion.setFecha(LocalDateTime.of(2020, 10, 12, 23, 00));
+        competicion.setFecha(LocalDateTime.of(2020, 10, 13, 23, 00));
         String fechaFormat = competicion.getFecha().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        assertEquals("12/10/2020", fechaFormat);
+        assertEquals("13/10/2020", fechaFormat);
     }
 
     @Test
-    void testId(){
+    void testID(){
         competicion.setId("1");
         assertEquals("1", competicion.getId());
     }

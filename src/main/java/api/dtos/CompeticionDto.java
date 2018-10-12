@@ -36,7 +36,7 @@ public class CompeticionDto {
 
     @Override
     public String toString() {
-        return "Competicion{" +
+        return "CompeticionDto{" +
                 "nombre='" + nombre + '\'' +
                 ", fecha='" + fecha + '\'' +
                 '}';
