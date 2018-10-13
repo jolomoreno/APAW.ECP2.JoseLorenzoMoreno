@@ -2,7 +2,10 @@ package api.apiControllers;
 
 import api.businessControllers.CompeticionBusinessController;
 import api.dtos.CompeticionDto;
+import api.dtos.CompeticionIdNombreDto;
 import api.exceptions.ArgumentNotValidException;
+
+import java.util.List;
 
 public class CompeticionApiController {
 
@@ -20,5 +23,9 @@ public class CompeticionApiController {
         this.validate(competicionDto, "competicionDto");
         this.validate(competicionDto.getNombre(), "CompeticionDto Nombre");
         return this.competicionBusinessController.create(competicionDto);
+    }
+
+    public List<CompeticionIdNombreDto> readAll() {
+        return this.competicionBusinessController.readAll();
     }
 }

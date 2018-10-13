@@ -28,7 +28,8 @@ public class Dispatcher {
                     this.doPost(request, response);
                     break;
                 case GET:
-                    throw new RequestInvalidException("request error: " + request.getMethod() + ' ' + request.getPath());
+                    this.doGet(request, response);
+                    break;
                 case PUT:
                     throw new RequestInvalidException("request error: " + request.getMethod() + ' ' + request.getPath());
                 case PATCH:
@@ -52,7 +53,15 @@ public class Dispatcher {
         if (request.isEqualsPath(CompeticionApiController.COMPETICIONES)) {
             response.setBody(this.competicionApiController.create((CompeticionDto) request.getBody()));
         } else {
-            throw new RequestInvalidException("method error: " + request.getMethod());
+            throw new RequestInvalidException("method error: " + request.getMethod() + ' ' + request.getPath());
+        }
+    }
+
+    private void doGet(HttpRequest request, HttpResponse response) {
+        if (request.isEqualsPath(CompeticionApiController.COMPETICIONES)) {
+            response.setBody(this.competicionApiController.readAll());
+        } else {
+            throw new RequestInvalidException("request error: " + request.getMethod() + ' ' + request.getPath());
         }
     }
 }
