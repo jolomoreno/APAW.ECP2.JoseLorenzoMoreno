@@ -36,4 +36,8 @@ public class CompeticionApiController {
         this.validate(competicionDto.getNombre(), "CompeticionDto Nombre");
         this.competicionBusinessController.updateNombre(id, competicionDto);
     }
+
+    public void delete(String id) {
+        this.competicionBusinessController.delete(id);
+    }
 }

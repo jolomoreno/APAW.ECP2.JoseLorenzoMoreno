@@ -38,7 +38,8 @@ public class Dispatcher {
                 case PATCH:
                     throw new RequestInvalidException("request error: " + request.getMethod() + ' ' + request.getPath());
                 case DELETE:
-                    throw new RequestInvalidException("request error: " + request.getMethod() + ' ' + request.getPath());
+                    this.doDelete(request);
+                    break;
                 default:
                     throw new RequestInvalidException("method error: " + request.getMethod());
             }
@@ -74,6 +75,14 @@ public class Dispatcher {
     private void doPut(HttpRequest request) {
         if (request.isEqualsPath(CompeticionApiController.COMPETICIONES + CompeticionApiController.ID)) {
             this.competicionApiController.update(request.getPath(1), (CompeticionDto) request.getBody());
+        } else {
+            throw new RequestInvalidException("request error: " + request.getMethod() + ' ' + request.getPath());
+        }
+    }
+
+    private void doDelete(HttpRequest request) {
+        if (request.isEqualsPath(CompeticionApiController.COMPETICIONES + CompeticionApiController.ID)) {
+            this.competicionApiController.delete(request.getPath(1));
         } else {
             throw new RequestInvalidException("request error: " + request.getMethod() + ' ' + request.getPath());
         }
