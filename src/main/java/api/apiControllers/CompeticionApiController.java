@@ -11,6 +11,8 @@ public class CompeticionApiController {
 
     public static final String COMPETICIONES = "/competiciones";
 
+    public static final String ID = "/{id}";
+
     private CompeticionBusinessController competicionBusinessController = new CompeticionBusinessController();
 
     private void validate(Object property, String message) {
@@ -27,5 +29,11 @@ public class CompeticionApiController {
 
     public List<CompeticionIdNombreDto> readAll() {
         return this.competicionBusinessController.readAll();
+    }
+
+    public void update(String id, CompeticionDto competicionDto){
+        this.validate(competicionDto, "competicionDto");
+        this.validate(competicionDto.getNombre(), "CompeticionDto Nombre");
+        this.competicionBusinessController.updateNombre(id, competicionDto);
     }
 }
