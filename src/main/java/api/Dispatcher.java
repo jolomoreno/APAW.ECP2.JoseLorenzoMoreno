@@ -11,6 +11,7 @@ import http.HttpRequest;
 import http.HttpResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.appender.AbstractAppender;
 
 public class Dispatcher {
 
@@ -48,7 +49,7 @@ public class Dispatcher {
             response.setBody(String.format(ERROR_MESSAGE, exception.getMessage()));
             response.setStatus(http.HttpStatus.NOT_FOUND);
         } catch (Exception exception) {  // Unexpected
-            exception.printStackTrace();
+            LogManager.getLogger(this.getClass()).error("UNEXPECTED   ERROR: " + exception);
             response.setBody(String.format(ERROR_MESSAGE, exception));
             response.setStatus(http.HttpStatus.INTERNAL_SERVER_ERROR);
         }
