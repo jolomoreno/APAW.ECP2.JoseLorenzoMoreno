@@ -5,10 +5,7 @@
 
 ## Estado del proyecto
 
-#### Master: 
-#### [![Build Status](https://travis-ci.org/jolomoreno/APAW.ECP2.JoseLorenzoMoreno.svg?branch=master)](https://travis-ci.org/jolomoreno/APAW.ECP2.JoseLorenzoMoreno)
-
-#### Master: 
+#### [![Build Status](https://travis-ci.org/jolomoreno/APAW.ECP2.JoseLorenzoMoreno.svg)](https://travis-ci.org/jolomoreno/APAW.ECP2.JoseLorenzoMoreno)
 #### [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=jolomoreno_APAW.ECP2.JoseLorenzoMoreno&metric=alert_status)](https://sonarcloud.io/dashboard?id=jolomoreno_APAW.ECP2.JoseLorenzoMoreno)
 
 ## Tecnologías necesarias
@@ -20,7 +17,7 @@
 * Sonarcloud
 
 ## Diseño de entidades
-![equipos-entities-diagram](https://github.com/jolomoreno/APAW.ECP2.JoseLorenzoMoreno/blob/master/docs/APAW.ECP2.JoseLorenzoMoreno.png)
+![equipos-entities-diagram](https://github.com/jolomoreno/APAW.ECP2.JoseLorenzoMoreno/blob/develop/docs/APAW.ECP2.JoseLorenzoMoreno.png)
 
 ## Arquitectura
 ![equipos-architecture-diagram](https://github.com/miw-upm/APAW-themes-layers/blob/develop/docs/themes-architecture-diagram.png)
@@ -46,8 +43,8 @@
 ## API
 ### POST /competiciones
 #### Parámetros del cuerpo
-- `fecha`: LocalDatetime (**requerido**)
-- `lugar`: String (**requerido**)
+- `nombre`: String (**requerido**)
+- `fecha`: LocalDatetime
 #### Respuesta
 - 200 OK 
   - `id`: String
@@ -56,12 +53,12 @@
 ### GET /competiciones
 #### Respuesta
 - 200 OK 
-  - `[ {id:String,fecha:LocalDateTime,lugar:String} ]`
+  - `[ {id:String,nombre:String} ]`
 ---
 ### PUT /competiciones/{id}
 #### Parámetros del cuerpo
-- `fecha`: LocalDatetime (**requerido**)
-- `lugar`: String (**requerido**)
+- `nombre`: String (**requerido**)
+- `fecha`: LocalDatetime
 #### Respuesta
 - 200 OK 
 - 403 BAD_REQUEST
