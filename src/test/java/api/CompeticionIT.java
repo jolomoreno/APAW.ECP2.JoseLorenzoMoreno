@@ -18,6 +18,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CompeticionIT {
 
+    private String createCompeticion() {
+        HttpRequest request = HttpRequest.builder(CompeticionApiController.COMPETICIONES).body(new CompeticionDto("La Vuelta")).post();
+        return (String) new Client().submit(request).getBody();
+    }
+
     @Test
     void testCompeticionInvalidRequest() {
         HttpRequest request = HttpRequest.builder(CompeticionApiController.COMPETICIONES).path("/invalid").body(null).post();
@@ -44,11 +49,6 @@ public class CompeticionIT {
         this.createCompeticion();
     }
 
-    private String createCompeticion() {
-        HttpRequest request = HttpRequest.builder(CompeticionApiController.COMPETICIONES).body(new CompeticionDto("La Vuelta")).post();
-        return (String) new Client().submit(request).getBody();
-    }
-
     @Test
     void testReadAll() {
         for (int i = 0; i < 5; i++) {
@@ -57,6 +57,31 @@ public class CompeticionIT {
         HttpRequest request = HttpRequest.builder(CompeticionApiController.COMPETICIONES).get();
         List<CompeticionIdNombreDto> competiciones = (List<CompeticionIdNombreDto>) new Client().submit(request).getBody();
         assertTrue(competiciones.size() >= 5);
+    }
+
+    @Test
+    void testUpdateCompeticion() {
+        String id = this.createCompeticion();
+        HttpRequest request = HttpRequest.builder(CompeticionApiController.COMPETICIONES).path(CompeticionApiController.ID)
+                .expandPath(id).body(new CompeticionDto("Vuelta a Burgos")).put();
+        new Client().submit(request);
+    }
+
+    @Test
+    void testUpdateCompeticionWithoutCompeticionDto() {
+        String id = this.createCompeticion();
+        HttpRequest request = HttpRequest.builder(CompeticionApiController.COMPETICIONES).path(CompeticionApiController.ID)
+                .expandPath(id).body(null).put();
+        HttpException exception = assertThrows(HttpException.class, () -> new Client().submit(request));
+        assertEquals(HttpStatus.BAD_REQUEST, exception.getHttpStatus());
+    }
+
+    @Test
+    void testUpdateCompeticionBadRequestException() {
+        HttpRequest request = HttpRequest.builder(CompeticionApiController.COMPETICIONES).path(CompeticionApiController.ID)
+                .expandPath("incorrectPath").body(new CompeticionDto("Il Giro")).put();
+        HttpException exception = assertThrows(HttpException.class, () -> new Client().submit(request));
+        assertEquals(HttpStatus.NOT_FOUND, exception.getHttpStatus());
     }
 
 }
