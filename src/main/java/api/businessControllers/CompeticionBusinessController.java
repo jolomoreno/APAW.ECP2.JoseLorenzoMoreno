@@ -29,4 +29,8 @@ public class CompeticionBusinessController {
         competicion.setNombre(competicionDto.getNombre());
         DaoFactory.getFactory().getCompeticionDao().save(competicion);
     }
+
+    public void delete(String id) {
+        DaoFactory.getFactory().getCompeticionDao().deleteById(id);
+    }
 }

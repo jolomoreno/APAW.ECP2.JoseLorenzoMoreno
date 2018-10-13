@@ -84,4 +84,15 @@ public class CompeticionIT {
         assertEquals(HttpStatus.NOT_FOUND, exception.getHttpStatus());
     }
 
+    @Test
+    void testDelete() {
+        String id = this.createCompeticion();
+        HttpRequest request1 = HttpRequest.builder(CompeticionApiController.COMPETICIONES).get();
+        int count = ((List<CompeticionIdNombreDto>) new Client().submit(request1).getBody()).size();
+        HttpRequest request2 = HttpRequest.builder(CompeticionApiController.COMPETICIONES).path(CompeticionApiController.ID)
+                .expandPath(id).delete();
+        new Client().submit(request2);
+        assertTrue(((List<CompeticionIdNombreDto>) new Client().submit(request1).getBody()).size() < count);
+    }
+
 }
