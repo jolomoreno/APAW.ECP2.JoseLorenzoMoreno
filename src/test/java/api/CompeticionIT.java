@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class CompeticionIT {
 
     @Test
-    void testArtistInvalidRequest() {
+    void testCompeticionInvalidRequest() {
         HttpRequest request = HttpRequest.builder(CompeticionApiController.COMPETICIONES).path("/invalid").body(null).post();
         HttpException exception = assertThrows(HttpException.class, () -> new Client().submit(request));
         assertEquals(HttpStatus.BAD_REQUEST, exception.getHttpStatus());
@@ -30,7 +30,7 @@ public class CompeticionIT {
     }
 
     @Test
-    void testCreateCompeticionWithoutArtistDtoNombre() {
+    void testCreateCompeticionWithoutCompeticionDtoNombre() {
         HttpRequest request = HttpRequest.builder(CompeticionApiController.COMPETICIONES).body(new CompeticionDto(null)).post();
         HttpException exception = assertThrows(HttpException.class, () -> new Client().submit(request));
         assertEquals(HttpStatus.BAD_REQUEST, exception.getHttpStatus());
