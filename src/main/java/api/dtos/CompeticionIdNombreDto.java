@@ -9,30 +9,30 @@ public class CompeticionIdNombreDto {
     private String nombre;
 
     public CompeticionIdNombreDto(Competicion competicion){
-        this.id = id;
-        this.nombre = nombre;
+        this.id = competicion.getId();
+        this.nombre = competicion.getNombre();
     }
 
-    public String getId() {
+    public String getIdCompeticion() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setIdCompeticion(String id) {
         this.id = id;
     }
 
-    public String getNombre() {
+    public String getNombreCompeticion() {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
+    public void setNombreCompeticion(String nombre) {
         this.nombre = nombre;
     }
 
 
     @Override
     public String toString() {
-        return "CompeticionDto{" +
+        return "CompeticionIdNombreDto{" +
                 "id='" + id + '\'' +
                 ", nombre='" + nombre + '\'' +
                 '}';

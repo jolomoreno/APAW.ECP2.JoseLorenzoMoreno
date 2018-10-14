@@ -1,8 +1,11 @@
 package api;
 
+import api.apiControllers.EquipoApiController;
 import api.daos.DaoFactory;
 import api.daos.memory.DaoMemoryFactory;
 import api.dtos.CompeticionDto;
+import api.dtos.EquipoDto;
+import api.entities.Categoria;
 import api.exceptions.NotFoundException;
 import api.exceptions.RequestInvalidException;
 import api.exceptions.ArgumentNotValidException;
@@ -21,6 +24,8 @@ public class Dispatcher {
 
     private CompeticionApiController competicionApiController = new CompeticionApiController();
 
+    private EquipoApiController equipoApiController = new EquipoApiController();
+
     public void submit(HttpRequest request, HttpResponse response) {
 
         String ERROR_MESSAGE = "{'error':'%S'}";
@@ -36,7 +41,8 @@ public class Dispatcher {
                     this.doPut(request);
                     break;
                 case PATCH:
-                    throw new RequestInvalidException("request error: " + request.getMethod() + ' ' + request.getPath());
+                    this.doPatch(request);
+                    break;
                 case DELETE:
                     this.doDelete(request);
                     break;
@@ -59,7 +65,10 @@ public class Dispatcher {
     private void doPost(HttpRequest request, HttpResponse response) {
         if (request.isEqualsPath(CompeticionApiController.COMPETICIONES)) {
             response.setBody(this.competicionApiController.create((CompeticionDto) request.getBody()));
-        } else {
+        } else if (request.isEqualsPath(EquipoApiController.EQUIPOS)) {
+            response.setBody(this.equipoApiController.create((EquipoDto) request.getBody()));
+        }
+        else {
             throw new RequestInvalidException("method error: " + request.getMethod() + ' ' + request.getPath());
         }
     }
@@ -67,7 +76,12 @@ public class Dispatcher {
     private void doGet(HttpRequest request, HttpResponse response) {
         if (request.isEqualsPath(CompeticionApiController.COMPETICIONES)) {
             response.setBody(this.competicionApiController.readAll());
-        } else {
+        } else if (request.isEqualsPath(EquipoApiController.EQUIPOS)) {
+            response.setBody(this.equipoApiController.readAll());
+        }else if (request.isEqualsPath(EquipoApiController.EQUIPOS + EquipoApiController.SEARCH)) {
+            response.setBody(this.equipoApiController.find(request.getParams().get("q")));
+        }
+        else {
             throw new RequestInvalidException("request error: " + request.getMethod() + ' ' + request.getPath());
         }
     }
@@ -83,6 +97,14 @@ public class Dispatcher {
     private void doDelete(HttpRequest request) {
         if (request.isEqualsPath(CompeticionApiController.COMPETICIONES + CompeticionApiController.ID)) {
             this.competicionApiController.delete(request.getPath(1));
+        } else {
+            throw new RequestInvalidException("request error: " + request.getMethod() + ' ' + request.getPath());
+        }
+    }
+
+    private void doPatch(HttpRequest request) {
+        if (request.isEqualsPath(EquipoApiController.EQUIPOS + EquipoApiController.ID + EquipoApiController.CATEGORIA)) {
+            this.equipoApiController.updateCategoria(request.getPath(1), (Categoria) request.getBody());
         } else {
             throw new RequestInvalidException("request error: " + request.getMethod() + ' ' + request.getPath());
         }
