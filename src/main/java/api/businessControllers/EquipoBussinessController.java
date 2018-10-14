@@ -18,7 +18,7 @@ public class EquipoBussinessController {
         Competicion competicion = null;
         if (equipoDto.getCompeticionId() != null) {
             competicion = DaoFactory.getFactory().getCompeticionDao().read(equipoDto.getCompeticionId())
-                    .orElseThrow(() -> new NotFoundException("User (" + equipoDto.getCompeticionId() + ")"));
+                    .orElseThrow(() -> new NotFoundException("Competicion (" + equipoDto.getCompeticionId() + ")"));
         }
         Equipo equipo = Equipo.builder(equipoDto.getNombre()).competicion(competicion).categoria(equipoDto.getCategoria()).build();
         DaoFactory.getFactory().getEquipoDao().save(equipo);
@@ -36,5 +36,17 @@ public class EquipoBussinessController {
                 .orElseThrow(() -> new NotFoundException("Equipo (" + equipoId + ")"));
         equipo.setCategoria(categoria);
         DaoFactory.getFactory().getEquipoDao().save(equipo);
+    }
+
+    private String getCategoria(Equipo equipo) {
+        return equipo.getCategoria().toString();
+    }
+
+    public List<EquipoIdNombreDto> findByCategoriaEqualsJUNIOR(String categoriaValue) {
+        return DaoFactory.getFactory().getEquipoDao().findAll()
+                .stream()
+                .filter(equipo -> this.getCategoria(equipo).equals(categoriaValue))
+                .map(EquipoIdNombreDto::new)
+                .collect(Collectors.toList());
     }
 }

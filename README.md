@@ -93,7 +93,7 @@
 - 403 BAD_REQUEST
 - 404 NOT_FOUND
 ---
-### GET /equipos/search?q=numCorredores:>=10
+### GET /equipos/search?q=categoria:==JUNIOR
 #### Respuesta
 - 200 OK
   - `[ {id:String,nombre:String} ]`
