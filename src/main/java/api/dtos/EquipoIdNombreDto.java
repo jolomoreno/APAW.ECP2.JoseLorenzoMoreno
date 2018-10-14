@@ -1,16 +1,16 @@
 package api.dtos;
 
-import api.entities.Competicion;
+import api.entities.Equipo;
 
-public class CompeticionIdNombreDto {
+public class EquipoIdNombreDto {
 
     private String id;
 
     private String nombre;
 
-    public CompeticionIdNombreDto(Competicion competicion){
-        this.id = competicion.getId();
-        this.nombre = competicion.getNombre();
+    public EquipoIdNombreDto(Equipo equipo){
+        this.id = equipo.getId();
+        this.nombre = equipo.getNombre();
     }
 
     public String getId() {
@@ -32,7 +32,7 @@ public class CompeticionIdNombreDto {
 
     @Override
     public String toString() {
-        return "CompeticionIdNombreDto{" +
+        return "EquipoIdNombreDto{" +
                 "id='" + id + '\'' +
                 ", nombre='" + nombre + '\'' +
                 '}';
