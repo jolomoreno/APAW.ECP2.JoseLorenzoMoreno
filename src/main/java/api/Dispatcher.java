@@ -1,8 +1,10 @@
 package api;
 
+import api.apiControllers.EquipoApiController;
 import api.daos.DaoFactory;
 import api.daos.memory.DaoMemoryFactory;
 import api.dtos.CompeticionDto;
+import api.dtos.EquipoDto;
 import api.exceptions.NotFoundException;
 import api.exceptions.RequestInvalidException;
 import api.exceptions.ArgumentNotValidException;
@@ -20,6 +22,8 @@ public class Dispatcher {
     }
 
     private CompeticionApiController competicionApiController = new CompeticionApiController();
+
+    private EquipoApiController equipoApiController = new EquipoApiController();
 
     public void submit(HttpRequest request, HttpResponse response) {
 
@@ -59,7 +63,9 @@ public class Dispatcher {
     private void doPost(HttpRequest request, HttpResponse response) {
         if (request.isEqualsPath(CompeticionApiController.COMPETICIONES)) {
             response.setBody(this.competicionApiController.create((CompeticionDto) request.getBody()));
-        } else {
+        } else if (request.isEqualsPath(EquipoApiController.EQUIPOS)) {
+            response.setBody(this.equipoApiController.create((EquipoDto) request.getBody()));
+        }else {
             throw new RequestInvalidException("method error: " + request.getMethod() + ' ' + request.getPath());
         }
     }

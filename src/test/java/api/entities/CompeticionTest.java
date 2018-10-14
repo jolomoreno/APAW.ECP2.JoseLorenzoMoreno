@@ -19,9 +19,10 @@ public class CompeticionTest {
 
     @Test
     void testCompeticion(){
+        String now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         assertEquals( "Tour de Francia", competicion.getNombre());
         String fechaFormat = competicion.getFecha().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        assertEquals( "13/10/2018", fechaFormat);
+        assertEquals( now, fechaFormat);
     }
 
     @Test
@@ -32,9 +33,10 @@ public class CompeticionTest {
 
     @Test
     void testSetFecha(){
-        competicion.setFecha(LocalDateTime.of(2020, 10, 13, 23, 00));
+        String now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        competicion.setFecha(LocalDateTime.now());
         String fechaFormat = competicion.getFecha().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        assertEquals("13/10/2020", fechaFormat);
+        assertEquals(now, fechaFormat);
     }
 
     @Test

@@ -11,4 +11,6 @@ public abstract class DaoFactory {
     public static void setFactory(DaoFactory factory){ DaoFactory.factory = factory; }
 
     public abstract CompeticionDao getCompeticionDao();
+
+    public abstract EquipoDao getEquipoDao();
 }
