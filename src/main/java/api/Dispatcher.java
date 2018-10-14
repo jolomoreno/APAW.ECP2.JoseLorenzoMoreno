@@ -67,7 +67,8 @@ public class Dispatcher {
             response.setBody(this.competicionApiController.create((CompeticionDto) request.getBody()));
         } else if (request.isEqualsPath(EquipoApiController.EQUIPOS)) {
             response.setBody(this.equipoApiController.create((EquipoDto) request.getBody()));
-        }else {
+        }
+        else {
             throw new RequestInvalidException("method error: " + request.getMethod() + ' ' + request.getPath());
         }
     }
@@ -77,7 +78,10 @@ public class Dispatcher {
             response.setBody(this.competicionApiController.readAll());
         } else if (request.isEqualsPath(EquipoApiController.EQUIPOS)) {
             response.setBody(this.equipoApiController.readAll());
-        } else {
+        }else if (request.isEqualsPath(EquipoApiController.EQUIPOS + EquipoApiController.SEARCH)) {
+            response.setBody(this.equipoApiController.find(request.getParams().get("q")));
+        }
+        else {
             throw new RequestInvalidException("request error: " + request.getMethod() + ' ' + request.getPath());
         }
     }

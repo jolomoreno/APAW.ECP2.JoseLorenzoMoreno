@@ -5,6 +5,7 @@ import api.apiControllers.EquipoApiController;
 import api.dtos.CompeticionDto;
 import api.dtos.CompeticionIdNombreDto;
 import api.dtos.EquipoDto;
+import api.dtos.EquipoIdNombreDto;
 import api.entities.Categoria;
 import http.Client;
 import http.HttpException;
@@ -14,9 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class EquipoIT {
 
@@ -29,6 +28,13 @@ public class EquipoIT {
         String competicionId = this.createCompeticion();
         HttpRequest request = HttpRequest.builder(EquipoApiController.EQUIPOS)
                 .body(new EquipoDto(nombre, Categoria.ELITE, competicionId)).post();
+        return (String) new Client().submit(request).getBody();
+    }
+
+    private String createEquipoJunior(String nombre) {
+        String competicionId = this.createCompeticion();
+        HttpRequest request = HttpRequest.builder(EquipoApiController.EQUIPOS)
+                .body(new EquipoDto(nombre, Categoria.JUNIOR, competicionId)).post();
         return (String) new Client().submit(request).getBody();
     }
 
@@ -78,5 +84,35 @@ public class EquipoIT {
         HttpRequest request = HttpRequest.builder(EquipoApiController.EQUIPOS).path(EquipoApiController.ID)
                 .expandPath(id).path(EquipoApiController.CATEGORIA).body(Categoria.JUNIOR).patch();
         new Client().submit(request);
+    }
+
+    @Test
+    void testSearchEquipoJunior() {
+        this.createEquipo("Equipo Euskaltel");
+        this.createEquipoJunior("Equipo Sky");
+        HttpRequest request = HttpRequest.builder(EquipoApiController.EQUIPOS).path(EquipoApiController.SEARCH)
+                .param("q", "categoria:==JUNIOR").get();
+        List<EquipoIdNombreDto> equiposJunior = (List<EquipoIdNombreDto>) new Client().submit(request).getBody();
+        assertFalse(equiposJunior.isEmpty());
+    }
+
+    @Test
+    void testSearchEquipoJuniorWithoutParamQ() {
+        this.createEquipo("Equipo Euskaltel");
+        this.createEquipoJunior("Equipo Sky");
+        HttpRequest request = HttpRequest.builder(EquipoApiController.EQUIPOS).path(EquipoApiController.SEARCH)
+                .param("error", "categoria:==JUNIOR").get();
+        HttpException exception = assertThrows(HttpException.class, () -> new Client().submit(request));
+        assertEquals(HttpStatus.BAD_REQUEST, exception.getHttpStatus());
+    }
+
+    @Test
+    void testSearchEquipoJuniorParamNameError() {
+        this.createEquipo("Equipo Euskaltel");
+        this.createEquipoJunior("Equipo Sky");
+        HttpRequest request = HttpRequest.builder(EquipoApiController.EQUIPOS).path(EquipoApiController.SEARCH)
+                .param("q", "error:==JUNIOR").get();
+        HttpException exception = assertThrows(HttpException.class, () -> new Client().submit(request));
+        assertEquals(HttpStatus.BAD_REQUEST, exception.getHttpStatus());
     }
 }

@@ -16,6 +16,8 @@ public class EquipoApiController {
 
     public static final String CATEGORIA = "/categoria";
 
+    public static final String SEARCH = "/search";
+
     private EquipoBussinessController equipoBusinessController = new EquipoBussinessController();
 
     private void validate(Object property, String message) {
@@ -37,5 +39,13 @@ public class EquipoApiController {
     public void updateCategoria(String equipoId, Categoria categoria) {
         this.validate(categoria, "categoria");
         this.equipoBusinessController.updateCategoria(equipoId, categoria);
+    }
+
+    public List<EquipoIdNombreDto> find(String query) {
+        this.validate(query, "query param q");
+        if (!"categoria".equals(query.split(":==")[0])) {
+            throw new ArgumentNotValidException("query param q is incorrect, missing 'categoria:=='");
+        }
+        return this.equipoBusinessController.findByCategoriaEqualsJUNIOR(query.split(":==")[1]);
     }
 }
