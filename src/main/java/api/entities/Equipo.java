@@ -61,6 +61,9 @@ public class Equipo {
         return competicion;
     }
 
+    public void setCompeticion(Competicion competicion) {
+        this.competicion = competicion;
+    }
 
     public List<Corredor> getCorredores() {
         return corredores;
@@ -109,12 +112,8 @@ public class Equipo {
             return this;
         }
 
-        public Builder corredor(Competicion competicion) {
-            this.equipo.competicion = competicion;
-            return this;
-        }
 
-        public Builder votcorredore(Corredor corredor) {
+        public Builder corredores(Corredor corredor) {
             this.equipo.corredores.add(corredor);
             return this;
         }

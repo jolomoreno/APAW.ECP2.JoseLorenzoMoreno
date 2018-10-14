@@ -13,6 +13,11 @@ public class Corredor {
         this.dorsal = 0;
     }
 
+    public Corredor(String nombre, int dorsal) {
+        this.nombre = nombre;
+        this.dorsal = dorsal;
+    }
+
     public String getId() {
         return id;
     }
