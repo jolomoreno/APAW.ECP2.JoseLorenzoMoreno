@@ -5,6 +5,7 @@ import api.daos.DaoFactory;
 import api.daos.memory.DaoMemoryFactory;
 import api.dtos.CompeticionDto;
 import api.dtos.EquipoDto;
+import api.entities.Categoria;
 import api.exceptions.NotFoundException;
 import api.exceptions.RequestInvalidException;
 import api.exceptions.ArgumentNotValidException;
@@ -40,7 +41,8 @@ public class Dispatcher {
                     this.doPut(request);
                     break;
                 case PATCH:
-                    throw new RequestInvalidException("request error: " + request.getMethod() + ' ' + request.getPath());
+                    this.doPatch(request);
+                    break;
                 case DELETE:
                     this.doDelete(request);
                     break;
@@ -91,6 +93,14 @@ public class Dispatcher {
     private void doDelete(HttpRequest request) {
         if (request.isEqualsPath(CompeticionApiController.COMPETICIONES + CompeticionApiController.ID)) {
             this.competicionApiController.delete(request.getPath(1));
+        } else {
+            throw new RequestInvalidException("request error: " + request.getMethod() + ' ' + request.getPath());
+        }
+    }
+
+    private void doPatch(HttpRequest request) {
+        if (request.isEqualsPath(EquipoApiController.EQUIPOS + EquipoApiController.ID + EquipoApiController.CATEGORIA)) {
+            this.equipoApiController.updateCategoria(request.getPath(1), (Categoria) request.getBody());
         } else {
             throw new RequestInvalidException("request error: " + request.getMethod() + ' ' + request.getPath());
         }

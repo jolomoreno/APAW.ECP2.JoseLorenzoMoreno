@@ -4,6 +4,7 @@ import api.daos.DaoFactory;
 import api.dtos.CompeticionIdNombreDto;
 import api.dtos.EquipoDto;
 import api.dtos.EquipoIdNombreDto;
+import api.entities.Categoria;
 import api.entities.Competicion;
 import api.entities.Equipo;
 import api.exceptions.NotFoundException;
@@ -28,5 +29,12 @@ public class EquipoBussinessController {
         return DaoFactory.getFactory().getEquipoDao().findAll()
                 .stream().map(EquipoIdNombreDto::new)
                 .collect(Collectors.toList());
+    }
+
+    public void updateCategoria(String equipoId, Categoria categoria) {
+        Equipo equipo = DaoFactory.getFactory().getEquipoDao().read(equipoId)
+                .orElseThrow(() -> new NotFoundException("Equipo (" + equipoId + ")"));
+        equipo.setCategoria(categoria);
+        DaoFactory.getFactory().getEquipoDao().save(equipo);
     }
 }

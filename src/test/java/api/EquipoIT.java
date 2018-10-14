@@ -71,4 +71,12 @@ public class EquipoIT {
         List<CompeticionIdNombreDto> themes = (List<CompeticionIdNombreDto>) new Client().submit(request).getBody();
         assertTrue(themes.size() >= 5);
     }
+
+    @Test
+    void testUpdateCategoria() {
+        String id = this.createEquipo("Equipo Caja Rural");
+        HttpRequest request = HttpRequest.builder(EquipoApiController.EQUIPOS).path(EquipoApiController.ID)
+                .expandPath(id).path(EquipoApiController.CATEGORIA).body(Categoria.JUNIOR).patch();
+        new Client().submit(request);
+    }
 }
