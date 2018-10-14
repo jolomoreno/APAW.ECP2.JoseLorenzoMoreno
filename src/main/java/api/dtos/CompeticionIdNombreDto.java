@@ -13,19 +13,19 @@ public class CompeticionIdNombreDto {
         this.nombre = competicion.getNombre();
     }
 
-    public String getId() {
+    public String getIdCompeticion() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setIdCompeticion(String id) {
         this.id = id;
     }
 
-    public String getNombre() {
+    public String getNombreCompeticion() {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
+    public void setNombreCompeticion(String nombre) {
         this.nombre = nombre;
     }
 
