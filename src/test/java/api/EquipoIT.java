@@ -3,6 +3,7 @@ package api;
 import api.apiControllers.CompeticionApiController;
 import api.apiControllers.EquipoApiController;
 import api.dtos.CompeticionDto;
+import api.dtos.CompeticionIdNombreDto;
 import api.dtos.EquipoDto;
 import api.entities.Categoria;
 import http.Client;
@@ -11,8 +12,11 @@ import http.HttpRequest;
 import http.HttpStatus;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class EquipoIT {
 
@@ -56,5 +60,15 @@ public class EquipoIT {
         HttpRequest request = HttpRequest.builder(EquipoApiController.EQUIPOS)
                 .body(new EquipoDto("Equipo BMC", null, null)).post();
         new Client().submit(request);
+    }
+
+    @Test
+    void testReadAll() {
+        for (int i = 1; i < 6; i++) {
+            this.createEquipo("Equipo Movistar_" + i);
+        }
+        HttpRequest request = HttpRequest.builder(EquipoApiController.EQUIPOS).get();
+        List<CompeticionIdNombreDto> themes = (List<CompeticionIdNombreDto>) new Client().submit(request).getBody();
+        assertTrue(themes.size() >= 5);
     }
 }

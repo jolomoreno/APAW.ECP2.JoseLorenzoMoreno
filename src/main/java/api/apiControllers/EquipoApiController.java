@@ -2,7 +2,10 @@ package api.apiControllers;
 
 import api.businessControllers.EquipoBussinessController;
 import api.dtos.EquipoDto;
+import api.dtos.EquipoIdNombreDto;
 import api.exceptions.ArgumentNotValidException;
+
+import java.util.List;
 
 public class EquipoApiController {
 
@@ -20,5 +23,9 @@ public class EquipoApiController {
         this.validate(equipoDto, "equipoDto");
         this.validate(equipoDto.getNombre(), "equipoDto nombre");
         return this.equipoBusinessController.create(equipoDto);
+    }
+
+    public List<EquipoIdNombreDto> readAll() {
+        return this.equipoBusinessController.readAll();
     }
 }
